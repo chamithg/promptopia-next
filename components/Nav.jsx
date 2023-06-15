@@ -51,7 +51,7 @@ export const Nav = () => {
             </Link>
           </div>
         ) : (
-          <div>
+          <>
             {providers &&
               Object.values(providers).map((provider) => (
                 <button
@@ -62,50 +62,63 @@ export const Nav = () => {
                   Sign In
                 </button>
               ))}
-          </div>
+          </>
         )}
-        {/* mobile navigation */}
-        <div>
-          <div className="sm:hidden flex relative">
-            {isUserLoggedIn ? (
-              <div className="flex">
-                <Image
-                  src="/assets/images/profile.svg"
-                  alt="profile"
-                  className="rounded-full"
-                  width={37}
-                  height={37}
+      </div>
+      {/* mobile navigation */}
+      <div className="sm:hidden flex relative">
+        {isUserLoggedIn ? (
+          <div className="flex">
+            <Image
+              src="/assets/images/profile.svg"
+              alt="profile"
+              className="rounded-full"
+              width={37}
+              height={37}
+              onClick={() => {
+                setToggleDropdown((prev) => !prev);
+              }}
+            />
+            {toggleDropdown && (
+              <div className="dropdown">
+                <Link
+                  href="profile"
+                  className="dropdown_link"
+                  onClick={() => setToggleDropdown(false)}>
+                  My Profile
+                </Link>
+                <Link
+                  href="/create-prompt"
+                  className="dropdown_link"
+                  onClick={() => setToggleDropdown(false)}>
+                  Create Prompt
+                </Link>
+                <button
+                  type="button"
                   onClick={() => {
-                    setToggleDropdown((prev) => !prev);
+                    setToggleDropdown(false);
+                    signOut();
                   }}
-                />
-                {toggleDropdown && (
-                  <div className="dropdown">
-                    <Link
-                      href="profile"
-                      className="dropdown_link"
-                      onClick={() => setToggleDropdown(false)}>
-                      My Profile
-                    </Link>
-                  </div>
-                )}
+                  className=" mt-5 w-full black_btn">
+                  Sign Out
+                </button>
               </div>
-            ) : (
-              <>
-                {providers &&
-                  Object.values(providers).map((provider) => (
-                    <button
-                      type="button"
-                      key={providers.name}
-                      onClick={() => signIn(provider.id)}
-                      className="black_btn">
-                      Sign In
-                    </button>
-                  ))}
-              </>
             )}
           </div>
-        </div>
+        ) : (
+          <>
+            {providers &&
+              Object.values(providers).map((provider) => (
+                <button
+                  type="button"
+                  key={providers.name}
+                  onClick={() => signIn(provider.id)}
+                  className="black_btn">
+                  Sign In
+                </button>
+              ))}
+          </>
+        )}
       </div>
     </nav>
   );
