@@ -2,12 +2,12 @@ import { Schema, model, models } from "mongoose";
 
 const UserSchema = new Schema({
   email: {
-    type: string,
+    type: String,
     unique: [true, "Email already exist!"],
     required: [true, "Email is required!"],
   },
   username: {
-    type: string,
+    type: String,
     required: [true, "Username is required!"],
     match: [
       /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/,
@@ -15,7 +15,7 @@ const UserSchema = new Schema({
     ],
   },
   image: {
-    type: string,
+    type: String,
   },
 });
 
